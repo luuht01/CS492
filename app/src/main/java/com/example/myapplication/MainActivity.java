@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,22 +9,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+    Button addItemBTN, addCategoryBTN,listItemsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //Remove next two lines from production
+        //These drop db on each run
+        //ShopcastDB = new  ShopcastDBHelper(this);
+        //this.deleteDatabase(ShopcastDB.DatabaseName);
+        this.addItemBTN =findViewById(R.id.addPartBtn);
+        this.addCategoryBTN = findViewById(R.id.addCategoryBtn);
+        this.listItemsBtn=findViewById(R.id.listItemsBtn);
+        addItemBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), CreateActivity.class);
+                startActivity(intent);
+            }
+        });
+        addCategoryBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        listItemsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
             }
         });
     }
