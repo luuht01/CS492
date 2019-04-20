@@ -1,6 +1,14 @@
 package com.example.myapplication;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,21 +17,28 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.media.MediaScannerConnection;
 
 public class CreateActivity extends AppCompatActivity {
 
     Button addItemBTN, cancelBTN;
     EditText PartNumberTXT, webSiteTXT, PriceTXT, descriptionTXT, keyWoordsTXT;
     Spinner categorySpinner;
+    ImageButton imageButton;
     ItemsDB itemDB;
     CategoryDB categoryDb;
     private Item item;
-
+    byte itemImage[];
+    private int GALLERY = 1, CAMERA = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +53,7 @@ public class CreateActivity extends AppCompatActivity {
         this.webSiteTXT = findViewById(R.id.webSiteTXT);
         this.PriceTXT = findViewById(R.id.PriceTXT);
         this.descriptionTXT = findViewById(R.id.descriptionTXT);
+        this.imageButton=findViewById(R.id.imageButton);
         this.keyWoordsTXT = findViewById(R.id.keywordsTXT);
 
         this.categoryDb = new CategoryDB(this);
@@ -65,7 +81,7 @@ public class CreateActivity extends AppCompatActivity {
                             webSiteTXT.getText().toString(),
                             Double.valueOf(PriceTXT.getText().toString()),
                             new User(),
-                            _category, _keywords);
+                            _category, itemImage,_keywords);
                     long partKey = itemDB.add(_item);
                     if (partKey > 0) {
                         Toast.makeText(getApplicationContext(), "Part added ID:" + partKey, Toast.LENGTH_SHORT).show();
@@ -81,6 +97,7 @@ public class CreateActivity extends AppCompatActivity {
                     item.setPrice(Double.valueOf(PriceTXT.getText().toString()));
                     item.setUpdateUser(new User());
                     item.setCategory(_category);
+                    item.setImage(itemImage);
                     item.setKeywords(_keywords);
                     if (itemDB.update(item)) {
                         Toast.makeText(getApplicationContext(), "Part updated", Toast.LENGTH_SHORT).show();
@@ -91,7 +108,10 @@ public class CreateActivity extends AppCompatActivity {
                 }
             }
         });
-
+        this.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {showPictureDialog();}
+        });
         Bundle _bundle = getIntent().getExtras();
         if (_bundle != null) {
             long itemId = _bundle.getLong("ItemID");
@@ -100,6 +120,28 @@ public class CreateActivity extends AppCompatActivity {
         } else {
             this.addItemBTN.setText("Add");
         }
+    }
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
 
     private void loadItem(long _itemID) {
@@ -126,4 +168,56 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
+
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    //String path = saveImage(bitmap);
+                    //Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                    itemImage =stream.toByteArray();
+                    imageButton.setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(CreateActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (requestCode == CAMERA) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+            itemImage=stream.toByteArray();
+            imageButton.setImageBitmap(bitmap);
+
+
+            //imageButton.setImageBitmap(thumbnail);
+            //saveImage(thumbnail);
+            Toast.makeText(CreateActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

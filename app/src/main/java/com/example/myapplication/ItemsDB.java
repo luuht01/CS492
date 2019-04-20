@@ -26,6 +26,7 @@ public class ItemsDB extends Item {
         values.put(ItemDBContract.ItemEntry.ColUpdateUserID, _item.getUpdateBy().getId());
         values.put(ItemDBContract.ItemEntry.ColCategoryID, _item.getCategory().getId());
         values.put(ItemDBContract.ItemEntry.ColWebsiteUrl, _item.getWebsiteUrl());
+        values.put(ItemDBContract.ItemEntry.ColImage,_item.image);
         SQLiteDatabase db = DBhelper.getWritableDatabase();
         _item.id = db.insert(ItemDBContract.ItemEntry.TableName, null, values);
         db.close();
@@ -46,6 +47,7 @@ public class ItemsDB extends Item {
         values.put(ItemDBContract.ItemEntry.ColUpdateUserID, _item.getUpdateBy().getId());
         values.put(ItemDBContract.ItemEntry.ColCategoryID, _item.getCategory().getId());
         values.put(ItemDBContract.ItemEntry.ColWebsiteUrl, _item.getWebsiteUrl());
+        values.put(ItemDBContract.ItemEntry.ColImage,_item.image);
         SQLiteDatabase db = DBhelper.getWritableDatabase();
         db.update(ItemDBContract.ItemEntry.TableName,values,ItemDBContract.ItemEntry.ColProductKey+"=?",new String[]{String.valueOf(_item.id)});
         db.close();
@@ -93,9 +95,10 @@ public class ItemsDB extends Item {
                 ItemDBContract.ItemEntry.ColProductKey +
                 " Where " + ItemDBContract.ItemEntry.ColCategoryID + "=?"
                 + " and (" + ItemDBContract.ItemEntry.ColDescription + " like ? " +
-                "or " + ItemKeywordDBContract.KeywordEntry.ColKeywords + " like ?)";
+                "or " + ItemKeywordDBContract.KeywordEntry.ColKeywords + " like ? " +
+                "or " + ItemDBContract.ItemEntry.ColProductNumber + " like ? )";
         _descOrKwd = "%" + _descOrKwd + "%";
-        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(_categoryId), _descOrKwd, _descOrKwd});
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(_categoryId), _descOrKwd, _descOrKwd, _descOrKwd});
 
         if (cursor.moveToFirst()) {
             do {
@@ -136,7 +139,8 @@ public class ItemsDB extends Item {
                 ItemDBContract.ItemEntry.ColPrice,
                 ItemDBContract.ItemEntry.ColUpdateDate,
                 ItemDBContract.ItemEntry.ColUpdateUserID,
-                ItemDBContract.ItemEntry.ColWebsiteUrl};
+                ItemDBContract.ItemEntry.ColWebsiteUrl,
+                ItemDBContract.ItemEntry.ColImage};
         String where = ItemDBContract.ItemEntry.ColProductKey + " =? ";//+ Long.toString(itemId);
         String[] selection = {Long.toString(_itemId)};
         Cursor cursor = db.query(ItemDBContract.ItemEntry.TableName, columns, where, selection, null, null, null);
@@ -149,7 +153,9 @@ public class ItemsDB extends Item {
             thisItem.updateDate= ZonedDateTime.parse(cursor.getString(5));
             //thisItem.updateBy=new User(cursor.getLong(6));
             thisItem.setWebsiteUrl(cursor.getString(7));
+            thisItem.setImage(cursor.getBlob(8));
             thisItem.keywords = getKeywords(thisItem.id);
+
         }
         db.close();
 

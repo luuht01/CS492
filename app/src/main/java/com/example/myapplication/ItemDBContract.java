@@ -16,6 +16,7 @@ public class ItemDBContract {
         public static final String ColUpdateUserID = "UpdateUserID";
         public static final String ColUpdateDate = "UpdateDate";
         public static final String ColCategoryID = "CategoryID";
+        public static final String ColImage="Image";
     }
 
     public static final String CreateTable =
@@ -28,6 +29,7 @@ public class ItemDBContract {
                     ItemEntry.ColUpdateUserID + " integer, " +
                     ItemEntry.ColUpdateDate + " date, " +
                     ItemEntry.ColCategoryID + " integer, " +
+                    ItemEntry.ColImage + " blob, " +
                     "foreign key ("+ ItemEntry.ColCategoryID +") references "+
                     CategoryDBContract.CategoryEntry.TableName +
                     "("+ CategoryDBContract.CategoryEntry.ColCategoryKey +"));";
