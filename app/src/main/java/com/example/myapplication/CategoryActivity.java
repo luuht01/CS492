@@ -9,14 +9,14 @@ import android.widget.Toast;
 
 public class CategoryActivity extends AppCompatActivity {
     CategoryDB categoryDB = new CategoryDB(this);
-    Button addCategoryBtn;
+    Button addCategoryBtn, categoryDoneBTN;
     EditText categoryNameEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
+        this.categoryDoneBTN = findViewById(R.id.categoryDoneBTN);
         this.addCategoryBtn  =findViewById(R.id.addCategoryBtn);
         this.categoryNameEdt = findViewById(R.id.categoryNameEdt);
         addCategoryBtn.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +30,12 @@ public class CategoryActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"New Category insert Failed",Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+        categoryDoneBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

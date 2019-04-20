@@ -15,7 +15,7 @@ public class Item {
     protected Category category;
     protected ArrayList<String> keywords;
     protected ZonedDateTime updateDate;
-
+    protected byte image[];
     Item() {
     }
 
@@ -25,8 +25,8 @@ public class Item {
          double _price,
          User _user,
          Category _category,
-         ArrayList<String> _keywords)
-    {
+         byte[] _image,
+         ArrayList<String> _keywords) {
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss Z");
         this.id = 0;
         this.productNumber = _productNumber;
@@ -37,6 +37,7 @@ public class Item {
         this.category = _category;
         this.keywords = _keywords;
         this.updateDate = ZonedDateTime.now();
+        this.image=_image;
     }
 
     //Setters
@@ -72,6 +73,8 @@ public class Item {
         this.keywords = _keywords;
     }
 
+    void setImage(byte[] _image){this.image=_image;}
+
     //Getters
     long getId() {
         return this.id;
@@ -104,6 +107,8 @@ public class Item {
     Category getCategory() {
         return this.category;
     }
+
+    byte[] getImage(){return this.image;}
 
     LocalDate getUpdateDate() {
         return this.updateDate.toLocalDate();
