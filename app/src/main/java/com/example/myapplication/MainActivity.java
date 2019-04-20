@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Remove next two lines from production
         //These drop db on each run
-        //ShopcastDB = new  ShopcastDBHelper(this);
+        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
         //this.deleteDatabase(ShopcastDB.DatabaseName);
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);

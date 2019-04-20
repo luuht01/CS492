@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+
     <EditText
         android:id="@+id/searchTxt"
         android:layout_width="309dp"

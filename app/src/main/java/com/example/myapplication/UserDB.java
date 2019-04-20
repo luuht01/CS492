@@ -1,0 +1,78 @@
+package com.example.myapplication;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+
+public class UserDB extends User
+{
+    private ShopcastDBHelper DBhelper;
+    private Context context;
+
+    UserDB(Context _context) {
+        this.context = _context;
+        DBhelper = new ShopcastDBHelper(this.context);
+    }
+
+    public long add(User _user) {
+        ContentValues values = new ContentValues();
+        values.put(UserDBContract.UserEntry.ColUsername, _user.getUsername());
+        values.put(UserDBContract.UserEntry.ColPassword, _user.getPassword());
+        SQLiteDatabase db = DBhelper.getWritableDatabase();
+        _user.id = db.insert(UserDBContract.UserEntry.TableName, null, values);
+        db.close();
+        this.getAllUsers();
+        return _user.id;
+    }
+
+    public boolean update(User _user){
+        ContentValues values = new ContentValues();
+        values.put(UserDBContract.UserEntry.ColUserId, _user.getId());
+        values.put(UserDBContract.UserEntry.ColUsername, _user.getUsername());
+        values.put(UserDBContract.UserEntry.ColPassword, _user.getPassword());
+        SQLiteDatabase db = DBhelper.getWritableDatabase();
+        db.update(UserDBContract.UserEntry.TableName,values,ItemDBContract.ItemEntry.ColProductKey+"=?",new String[]{String.valueOf(_user.id)});
+        db.close();
+
+        return true;
+    }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> _users = new ArrayList<>();
+        SQLiteDatabase db = DBhelper.getReadableDatabase();
+        String[] columns = {UserDBContract.UserEntry.ColUserId};
+
+        Cursor cursor = db.query(UserDBContract.UserEntry.TableName, columns, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                User thisUser = getUser(cursor.getLong(0));
+                _users.add(thisUser);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+
+        return _users;
+    }
+
+    public User getUser(long _userId) {
+        CategoryDB _categoryDb = new CategoryDB(this.context);
+        User thisUser = new User();
+        SQLiteDatabase db = DBhelper.getReadableDatabase();
+        String[] columns = {UserDBContract.UserEntry.ColUserId,
+                UserDBContract.UserEntry.ColUsername};
+        String where = UserDBContract.UserEntry.ColUserId + " =? ";
+        String[] selection = {Long.toString(_userId)};
+        Cursor cursor = db.query(UserDBContract.UserEntry.TableName, columns, where, selection, null, null, null);
+        if (cursor.moveToFirst()) {
+            thisUser.id = cursor.getLong(0);
+            thisUser.setUsername(cursor.getString(1));
+        }
+        db.close();
+
+        return thisUser;
+    }
+}

@@ -25,7 +25,8 @@ public class Item {
          double _price,
          User _user,
          Category _category,
-         ArrayList<String> _keywords) {
+         ArrayList<String> _keywords)
+    {
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss Z");
         this.id = 0;
         this.productNumber = _productNumber;

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchItemActivity">
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="715dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/itemNumTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Item Number"/>
+
+        <TextView
+            android:id="@+id/itemNumContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/categoryTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category"/>
+
+        <TextView
+            android:id="@+id/categoryContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/websiteTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Website"/>
+
+        <TextView
+            android:id="@+id/websiteContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/priceTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price" />
+
+        <TextView
+            android:id="@+id/priceContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/descriptionTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description" />
+
+        <TextView
+            android:id="@+id/descriptionContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/keywordsTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Keywords" />
+
+        <TextView
+            android:id="@+id/keywordsContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:background="@drawable/text_view_border"
+            android:textSize="20dp"/>
+
+        <Button
+            android:id="@+id/addToFavBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add to Favorite" />
+
+        <Button
+            android:id="@+id/backToSearchBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"/>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
