@@ -28,6 +28,7 @@ public class AccountActivity extends AppCompatActivity {
         btnEntry.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //redirect a sliding menu with a list of all item entries
+                startActivity(new Intent(AccountActivity.this, SearchActivity.class));
             }
         });
 
@@ -52,7 +53,7 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(new Intent(AccountActivity.this, LoginActivity.class));
             }
         });
-        Button btnExit = (Button) findViewById(R.id.btnExitAccount);
+        Button btnExit = (Button) findViewById(R.id.btnExitAcc);
         btnExit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(AccountActivity.this, MainActivity.class));

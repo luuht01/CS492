@@ -10,7 +10,22 @@
 
     <Button android:layout_height="wrap_content" android:layout_width="285dp" app:layout_constraintVertical_bias="0.581" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:visibility="invisible" android:text="Button" android:layout_marginBottom="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:id="@+id/btnLogout" app:layout_constraintHorizontal_bias="0.498"/>
 
-    <Button android:layout_height="55dp" android:layout_width="107dp" app:layout_constraintVertical_bias="1.0" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:visibility="invisible" android:text="Button" android:layout_marginBottom="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:id="@+id/btnExitAccount" app:layout_constraintHorizontal_bias="0.079"/>
+    <Button
+        android:id="@+id/btnExitAcc"
+        android:layout_width="107dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Button"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView android:layout_height="723dp" android:layout_width="923dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" tools:visibility="visible" android:layout_marginBottom="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:id="@+id/imageView4" app:srcCompat="@drawable/account_settings"/>
 
