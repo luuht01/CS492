@@ -13,22 +13,24 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    //public ShopcastDBHelper ShopcastDB;
-    Button addItemBTN, addCategoryBTN,listItemsBtn;
+    Button addItemBTN, addCategoryBTN,listItemsBtn, btnAcc, btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         //Remove next two lines from production
         //These drop db on each run
         //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
         //this.deleteDatabase(ShopcastDB.DatabaseName);
-        setContentView(R.layout.activity_main);
+        
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);
         this.listItemsBtn=findViewById(R.id.listItemsBtn);
 
         final String _username = getIntent().getExtras().getString("Username");
+		this.btnAcc=findViewById(R.id.btnAccount);
+        this.btnExit=findViewById(R.id.btnExit);
 
         addItemBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +52,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra("Username", _username);
+				intent.putExtra("Username", _username);
+                startActivity(intent);
+            }
+        });
+        btnAcc.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnExit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
