@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +10,8 @@ import android.widget.Toast;
 
 public class CategoryActivity extends AppCompatActivity {
     CategoryDB categoryDB = new CategoryDB(this);
-    Button addCategoryBtn, categoryDoneBTN;
+    Button addCategoryBtn, exitBtn, categoryDoneBTN;
+
     EditText categoryNameEdt;
 
     @Override
@@ -32,10 +34,18 @@ public class CategoryActivity extends AppCompatActivity {
 
             }
         });
+
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this, MainActivity.class));
+}
+        });
         categoryDoneBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+
             }
         });
     }

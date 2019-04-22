@@ -13,8 +13,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button addItemBTN, addCategoryBTN,listItemsBtn, btnAcc, btnExit;
+
     public ShopcastDBHelper ShopcastDB;
-    Button addItemBTN, addCategoryBTN,listItemsBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);
         this.listItemsBtn=findViewById(R.id.listItemsBtn);
+        this.btnAcc=findViewById(R.id.btnAccount);
+        this.btnExit=findViewById(R.id.btnExit);
         addItemBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnAcc.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnExit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
