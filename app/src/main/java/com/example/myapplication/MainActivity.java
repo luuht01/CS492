@@ -13,12 +13,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    public ShopcastDBHelper ShopcastDB;
+    //public ShopcastDBHelper ShopcastDB;
     Button addItemBTN, addCategoryBTN,listItemsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Remove next two lines from production
+        //These drop db on each run
+        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
+        //this.deleteDatabase(ShopcastDB.DatabaseName);
         setContentView(R.layout.activity_main);
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);

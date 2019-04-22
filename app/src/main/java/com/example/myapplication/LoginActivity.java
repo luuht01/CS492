@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity
                     Intent activityIntent = new Intent(getApplicationContext(), MainActivity.class);
                     activityIntent.putExtra("Username", loggingIn.getUsername());
                     startActivity(activityIntent);
-                    finish();
                 }
                 else
                 {
