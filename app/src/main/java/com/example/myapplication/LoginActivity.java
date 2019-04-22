@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity
     private View mProgressView;
     private View mLoginFormView;
     private UserDB userDB;
+    private Button exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,6 @@ public class LoginActivity extends AppCompatActivity
                 System.exit(0);
             }
         });
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
