@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -19,14 +20,65 @@ public class UserDB extends User
     }
 
     public long add(User _user) {
-        ContentValues values = new ContentValues();
-        values.put(UserDBContract.UserEntry.ColUsername, _user.getUsername());
-        values.put(UserDBContract.UserEntry.ColPassword, _user.getPassword());
-        SQLiteDatabase db = DBhelper.getWritableDatabase();
-        _user.id = db.insert(UserDBContract.UserEntry.TableName, null, values);
+        try {
+            ContentValues values = new ContentValues();
+            values.put(UserDBContract.UserEntry.ColUsername, _user.getUsername());
+            values.put(UserDBContract.UserEntry.ColPassword, _user.getPassword());
+            SQLiteDatabase db = DBhelper.getWritableDatabase();
+            _user.id = db.insert(UserDBContract.UserEntry.TableName, null, values);
+            db.close();
+            this.getAllUsers();
+            return _user.id;
+        }
+        catch (Exception e)
+        {
+            return -1;
+        }
+    }
+
+    public User getUser(String _username, String _password) {
+        try {
+            User targetUser = new User();
+            SQLiteDatabase db = DBhelper.getReadableDatabase();
+            String[] columns = {UserDBContract.UserEntry.ColUserId,
+                    UserDBContract.UserEntry.ColUsername,
+                    UserDBContract.UserEntry.ColPassword};
+            String where = UserDBContract.UserEntry.ColUsername + " =? and "
+                    + UserDBContract.UserEntry.ColPassword + " =? ";
+            String[] selection = {_username, _password};
+            Cursor cursor = db.query(UserDBContract.UserEntry.TableName, columns, where, selection, null, null, null);
+            if (cursor.moveToFirst()) {
+                targetUser.id = cursor.getLong(0);
+                targetUser.setUsername(cursor.getString(1));
+                targetUser.setPassword(cursor.getString(2));
+            }
+            db.close();
+
+            return targetUser;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    public User getUser(String _username) {
+        User targetUser = new User();
+        SQLiteDatabase db = DBhelper.getReadableDatabase();
+        String[] columns = {UserDBContract.UserEntry.ColUserId,
+                UserDBContract.UserEntry.ColUsername,
+                UserDBContract.UserEntry.ColPassword};
+        String where = UserDBContract.UserEntry.ColUsername + " =? ";
+        String[] selection = {_username};
+        Cursor cursor = db.query(UserDBContract.UserEntry.TableName, columns, where, selection, null, null, null);
+        if (cursor.moveToFirst()) {
+            targetUser.id = cursor.getLong(0);
+            targetUser.setUsername(cursor.getString(1));
+            targetUser.setPassword(cursor.getString(2));
+        }
         db.close();
-        this.getAllUsers();
-        return _user.id;
+
+        return targetUser;
     }
 
     public boolean update(User _user){

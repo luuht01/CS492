@@ -34,8 +34,11 @@ public class CreateActivity extends AppCompatActivity {
     EditText PartNumberTXT, webSiteTXT, PriceTXT, descriptionTXT, keyWoordsTXT;
     Spinner categorySpinner;
     ImageButton imageButton;
+    String username;
+    User user;
     ItemsDB itemDB;
     CategoryDB categoryDb;
+    UserDB userDb;
     private Item item;
     byte itemImage[];
     private int GALLERY = 1, CAMERA = 2;
@@ -46,6 +49,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
         this.itemDB = new ItemsDB(this);
+        this.userDb = new UserDB(this);
         this.categoryDb = new CategoryDB(this);
         this.addItemBTN = findViewById(R.id.addItemBTN);
         this.cancelBTN = findViewById(R.id.cancelBTN);
@@ -55,6 +59,9 @@ public class CreateActivity extends AppCompatActivity {
         this.descriptionTXT = findViewById(R.id.descriptionTXT);
         this.imageButton=findViewById(R.id.imageButton);
         this.keyWoordsTXT = findViewById(R.id.keywordsTXT);
+
+        username = getIntent().getExtras().getString("Username");
+        user = userDb.getUser(username);
 
         this.categoryDb = new CategoryDB(this);
         ArrayList<Category> categoryArray = categoryDb.getCategories();
@@ -80,7 +87,7 @@ public class CreateActivity extends AppCompatActivity {
                             descriptionTXT.getText().toString(),
                             webSiteTXT.getText().toString(),
                             Double.valueOf(PriceTXT.getText().toString()),
-                            new User(),
+                            user,
                             _category, itemImage,_keywords);
                     long partKey = itemDB.add(_item);
                     if (partKey > 0) {
@@ -113,7 +120,7 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View v) {showPictureDialog();}
         });
         Bundle _bundle = getIntent().getExtras();
-        if (_bundle != null) {
+        if (_bundle != null && _bundle.containsKey("ItemID")) {
             long itemId = _bundle.getLong("ItemID");
             loadItem(itemId);
             this.addItemBTN.setText("Save Changes");

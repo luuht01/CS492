@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +47,27 @@ public class LoginActivity extends AppCompatActivity
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private UserDB userDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //Remove next two lines from production
+        //These drop db on each run
+        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
+        //this.deleteDatabase(ShopcastDB.DatabaseName);
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.username);
+        mUsernameView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -65,13 +80,25 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
+        this.userDB = new UserDB(this);
+
+
         Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent activityIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(activityIntent);
-                finish();
+                User loggingIn = userDB.getUser(mUsernameView.getText().toString(), mPasswordView.getText().toString());
+                if (loggingIn!=null)
+                {
+                    Intent activityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    activityIntent.putExtra("Username", loggingIn.getUsername());
+                    startActivity(activityIntent);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Wrong Username and Password", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -81,7 +108,6 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent activityIntent = new Intent(getApplicationContext(), Register.class);
                 startActivity(activityIntent);
-                finish();
             }
         });
 

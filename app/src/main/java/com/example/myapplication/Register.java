@@ -20,7 +20,6 @@ public class Register extends AppCompatActivity {
     Button registerBTN, cancelBTN;
     EditText UsernameTXT, PasswordTXT;
     UserDB userDB;
-    CategoryDB categoryDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +27,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         this.userDB = new UserDB(this);
-        this.categoryDb = new CategoryDB(this);
         this.registerBTN = findViewById(R.id.registerBTN);
         this.cancelBTN = findViewById(R.id.cancelBTN);
         this.UsernameTXT = findViewById(R.id.usernameTXT);
         this.PasswordTXT = findViewById(R.id.passwordTXT);
-
-        this.categoryDb = new CategoryDB(this);
-        ArrayList<Category> categoryArray = categoryDb.getCategories();
 
         this.cancelBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +50,8 @@ public class Register extends AppCompatActivity {
                     startActivity(activityIntent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Failed to add user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Username already taken", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,16 +11,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class SearchItemActivity extends AppCompatActivity {
 
     Button addToFavBTN, backBTN;
     TextView itemNum, category, description, price, websites, keywords;
+    ImageView imageView;
     ItemsDB itemDB;
     CategoryDB categoryDb;
     private Item item;
@@ -37,6 +42,7 @@ public class SearchItemActivity extends AppCompatActivity {
         this.price = findViewById(R.id.priceContentTV);
         this.keywords = findViewById(R.id.keywordsContentTV);
         this.description = findViewById(R.id.descriptionContentTV);
+        this.imageView=findViewById(R.id.imageView);
 
         this.categoryDb = new CategoryDB(this);
         ArrayList<Category> categoryArray = categoryDb.getCategories();
@@ -72,6 +78,9 @@ public class SearchItemActivity extends AppCompatActivity {
         this.description.setText(this.item.getDescription());
         this.websites.setText(this.item.getWebsiteUrl());
         this.price.setText(Double.valueOf(this.item.getPrice()).toString());
+        ByteArrayInputStream imageStream = new ByteArrayInputStream(this.item.getImage());
+        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        this.imageView.setImageBitmap(theImage);
 
         String keywordString = "";
         int wordCount = 0;

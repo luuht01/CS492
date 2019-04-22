@@ -14,7 +14,7 @@ public class UserDBContract
     public static final String CreateTable =
             "Create Table " + UserEntry.TableName + " (" +
                     UserEntry.ColUserId + " integer primary key autoincrement, " +
-                    UserEntry.ColUsername + " text, " +
+                    UserEntry.ColUsername + " text unique, " +
                     UserEntry.ColPassword + " text); ";
 
     public static final String DropTable = "drop table if exists " + UserEntry.TableName;

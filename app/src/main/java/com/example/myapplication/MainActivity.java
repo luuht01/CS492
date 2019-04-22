@@ -20,17 +20,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Remove next two lines from production
-        //These drop db on each run
-        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
-        //this.deleteDatabase(ShopcastDB.DatabaseName);
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);
         this.listItemsBtn=findViewById(R.id.listItemsBtn);
+
+        final String _username = getIntent().getExtras().getString("Username");
+
         addItemBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), CreateActivity.class);
+                intent.putExtra("Username", _username);
                 startActivity(intent);
             }
         });
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),CategoryActivity.class);
+                intent.putExtra("Username", _username);
                 startActivity(intent);
             }
         });
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("Username", _username);
                 startActivity(intent);
             }
         });
