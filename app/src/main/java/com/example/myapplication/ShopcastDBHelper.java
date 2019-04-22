@@ -25,6 +25,7 @@ public class ShopcastDBHelper extends SQLiteOpenHelper {
         db.execSQL(ItemDBContract.CreateTable);
         db.execSQL(CategoryDBContract.CreateTable);
         db.execSQL(ItemKeywordDBContract.CreateTable);
+        db.execSQL(UserDBContract.CreateTable);
     }
 
     @Override
@@ -34,7 +35,8 @@ public class ShopcastDBHelper extends SQLiteOpenHelper {
         db.execSQL(ItemDBContract.DropTable);
         db.execSQL(CategoryDBContract.DropTable);
         db.execSQL(ItemKeywordDBContract.DropTable);
-    onCreate(db);
+        db.execSQL(UserDBContract.DropTable);
+        onCreate(db);
     }
 }
 

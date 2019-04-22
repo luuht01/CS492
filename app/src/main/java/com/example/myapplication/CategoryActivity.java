@@ -10,14 +10,15 @@ import android.widget.Toast;
 
 public class CategoryActivity extends AppCompatActivity {
     CategoryDB categoryDB = new CategoryDB(this);
-    Button addCategoryBtn, exitBtn;
+    Button addCategoryBtn, exitBtn, categoryDoneBTN;
+
     EditText categoryNameEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
+        this.categoryDoneBTN = findViewById(R.id.categoryDoneBTN);
         this.addCategoryBtn  =findViewById(R.id.addCategoryBtn);
         this.categoryNameEdt = findViewById(R.id.categoryNameEdt);
         addCategoryBtn.setOnClickListener(new View.OnClickListener() {
@@ -33,10 +34,17 @@ public class CategoryActivity extends AppCompatActivity {
 
             }
         });
+
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CategoryActivity.this, MainActivity.class));
+}
+        });
+        categoryDoneBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
 
             }
         });

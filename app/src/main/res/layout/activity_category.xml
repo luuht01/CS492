@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="406dp"
@@ -23,6 +24,7 @@
 
     <EditText
         android:id="@+id/categoryNameEdt"
+
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginStart="28dp"
@@ -41,6 +43,7 @@
 
     <Button
         android:id="@+id/addCategoryBtn"
+
         android:layout_width="287dp"
         android:layout_height="74dp"
         android:layout_marginStart="60dp"
@@ -72,5 +75,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.958" />
+
+    <Button
+        android:id="@+id/categoryDoneBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        android:text="Done"
+        app:layout_constraintStart_toEndOf="@+id/addCategoryBtn"
+        app:layout_constraintTop_toBottomOf="@+id/categoryNameEdt" />
 
 </android.support.constraint.ConstraintLayout>

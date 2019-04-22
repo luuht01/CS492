@@ -1,12 +1,16 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 /**
@@ -40,6 +44,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder.productNumber = (TextView) v.findViewById(R.id.productNumber);
             holder.price = (TextView) v.findViewById(R.id.price);
             holder.website= (TextView) v.findViewById(R.id.website);
+            holder.image = (ImageView) v.findViewById(R.id.imgIcon);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
@@ -48,6 +53,10 @@ public class CustomListAdapter extends BaseAdapter {
         holder.productNumber.setText(listData.get(position).getProductNumber());
         holder.price.setText(listData.get(position).getPriceString());
         holder.website.setText(listData.get(position).getWebsiteUrl());
+        byte[] outImage = listData.get(position).getImage();
+        ByteArrayInputStream imageStream = new ByteArrayInputStream(outImage);
+        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        holder.image.setImageBitmap(theImage);
         return v;
     }
     static class ViewHolder {
@@ -55,5 +64,6 @@ public class CustomListAdapter extends BaseAdapter {
         TextView productNumber;
         TextView price;
         TextView website;
+        ImageView image;
     }
 }

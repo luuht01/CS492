@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,7 +13,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
     Button addItemBTN, addCategoryBTN,listItemsBtn, btnAcc, btnExit;
+
+    public ShopcastDBHelper ShopcastDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Remove next two lines from production
         //These drop db on each run
-        //ShopcastDB = new  ShopcastDBHelper(this);
+        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
         //this.deleteDatabase(ShopcastDB.DatabaseName);
         this.addItemBTN =findViewById(R.id.addPartBtn);
         this.addCategoryBTN = findViewById(R.id.addCategoryBtn);

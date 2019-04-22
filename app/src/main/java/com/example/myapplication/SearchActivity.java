@@ -1,11 +1,7 @@
 package com.example.myapplication;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -37,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
         this.itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getApplicationContext(), CreateActivity.class);
+                Intent intent=new Intent(getApplicationContext(), SearchItemActivity.class);
                 Item _item = (Item)parent.getItemAtPosition(position);
                 intent.putExtra("ItemID",_item.id);
                 startActivity(intent);
@@ -92,5 +88,4 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 }
-
 
