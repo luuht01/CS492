@@ -53,8 +53,11 @@ public class UserDB extends User
                 targetUser.setPassword(cursor.getString(2));
             }
             db.close();
-
-            return targetUser;
+            if (targetUser.id>0){
+                return targetUser;
+            }else{
+                return null;
+            }
         }
         catch (Exception e)
         {
