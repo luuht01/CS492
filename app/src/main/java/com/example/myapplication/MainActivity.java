@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button addItemBTN, addCategoryBTN,listItemsBtn, btnAcc, btnExit;
+    Button addItemBTN, addCategoryBTN,listItemsBtn, btnAcc, btnExit, btnCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

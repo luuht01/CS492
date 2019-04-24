@@ -20,6 +20,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         this.addCategoryBtn  =findViewById(R.id.addCategoryBtn);
         this.categoryNameEdt = findViewById(R.id.categoryNameEdt);
+        this.exitBtn = findViewById(R.id.exitAdd);
         addCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
