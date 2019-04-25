@@ -70,8 +70,8 @@ public class AccountActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_stat_name)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle("Shopcast Notification")
+                        .setContentText("Notifications are now active");
 
         NotificationManager mNotificationManager =
 

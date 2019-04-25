@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A3C0FD"
     tools:context=".SearchItemActivity">
 
     <LinearLayout
@@ -20,43 +21,43 @@
             android:id="@+id/itemNumTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Item Number"/>
+            android:text="Item Number" />
 
         <TextView
             android:id="@+id/itemNumContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/categoryTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Category"/>
+            android:text="Category" />
 
         <TextView
             android:id="@+id/categoryContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/websiteTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Website"/>
+            android:text="Website" />
 
         <TextView
             android:id="@+id/websiteContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/priceTV"
@@ -68,9 +69,9 @@
             android:id="@+id/priceContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/descriptionTV"
@@ -82,9 +83,9 @@
             android:id="@+id/descriptionContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/keywordsTV"
@@ -96,9 +97,9 @@
             android:id="@+id/keywordsContentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="None"
             android:background="@drawable/text_view_border"
-            android:textSize="20dp"/>
+            android:text="None"
+            android:textSize="20dp" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -116,7 +117,7 @@
             android:id="@+id/backToSearchBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Back"/>
+            android:text="Back" />
 
     </LinearLayout>
 
