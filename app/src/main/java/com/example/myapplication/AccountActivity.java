@@ -4,18 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.content.Context;
+import android.app.NotificationManager;
 import static java.security.AccessController.getContext;
 
 public class AccountActivity extends AppCompatActivity {
-    boolean alert = false;
+    final String _username = getIntent().getExtras().getString("Username");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         Button btnChangePassword = (Button) findViewById(R.id.btnChangePass);
@@ -37,27 +42,43 @@ public class AccountActivity extends AppCompatActivity {
         btnAlert.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
-                if(alert == false) {
-                    Toast.makeText(getApplicationContext(), "Alerts will now be shown", Toast.LENGTH_SHORT);
-                    alert = true;
-                }else{
-                    Toast.makeText(getApplicationContext(), "Alerts will not be shown", Toast.LENGTH_SHORT);
-                    alert = false;
-                }
+                sendNotification(v);
+
             }
         });
         Button btnLog = (Button) findViewById(R.id.btnLogout);
         btnLog.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //set db activeuser to null
-                startActivity(new Intent(AccountActivity.this, LoginActivity.class));
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("Username", _username);
+                startActivity(intent);
             }
         });
         Button btnExit = (Button) findViewById(R.id.btnExitAcc);
         btnExit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(AccountActivity.this, MainActivity.class));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("Username", _username);
+                startActivity(intent);
             }
         });
     }
+    public void sendNotification(View view) {
+
+        //Get an instance of NotificationManager//
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_name)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
+
+        NotificationManager mNotificationManager =
+
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        mNotificationManager.notify(001, mBuilder.build());
+    }
+
 }
