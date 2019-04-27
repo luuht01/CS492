@@ -86,11 +86,10 @@ public class UserDB extends User
 
     public boolean update(User _user){
         ContentValues values = new ContentValues();
-        values.put(UserDBContract.UserEntry.ColUserId, _user.getId());
         values.put(UserDBContract.UserEntry.ColUsername, _user.getUsername());
         values.put(UserDBContract.UserEntry.ColPassword, _user.getPassword());
         SQLiteDatabase db = DBhelper.getWritableDatabase();
-        db.update(UserDBContract.UserEntry.TableName,values,ItemDBContract.ItemEntry.ColProductKey+"=?",new String[]{String.valueOf(_user.id)});
+        db.update(UserDBContract.UserEntry.TableName,values,UserDBContract.UserEntry.ColUserId+"=?",new String[]{String.valueOf(_user.id)});
         db.close();
 
         return true;

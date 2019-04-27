@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login);
         //Remove next two lines from production
         //These drop db on each run
-        //ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
-        //this.deleteDatabase(ShopcastDB.DatabaseName);
+       // ShopcastDBHelper ShopcastDB = new  ShopcastDBHelper(this);
+       // this.deleteDatabase(ShopcastDB.DatabaseName);
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.username);
         mUsernameView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

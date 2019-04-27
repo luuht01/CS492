@@ -16,18 +16,29 @@ import android.app.NotificationManager;
 import static java.security.AccessController.getContext;
 
 public class AccountActivity extends AppCompatActivity {
-    final String _username = getIntent().getExtras().getString("Username");
 
+
+    String _username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try
+        {
+            _username = getIntent().getExtras().getString("Username");
+        }
+        catch(Exception e)
+        {
 
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         Button btnChangePassword = (Button) findViewById(R.id.btnChangePass);
         btnChangePassword.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(AccountActivity.this, LoginActivity.class));
-            }
+                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+                //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("Username", _username);
+                startActivity(intent);
+                  }
         });
         Button btnEntry = (Button) findViewById(R.id.btnEntries);
         btnEntry.setOnClickListener(new View.OnClickListener(){
